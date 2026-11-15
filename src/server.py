@@ -17,11 +17,25 @@ class Server:
         return len(self.clients)
 
     def wait_for_connections(self):
-        print("waiting for clients")
-        while True:
-            conn, client_addr = self.server_socket.accept()
-            print(f"client {client_addr} has connected")
+        print(f"waiting for clients on {self.IP}:{self.PORT}")
+        try:
+            while True:
+                conn, client_addr = self.server_socket.accept()
+                self.clients.append((conn, client_addr))
+                print(f"client {client_addr} has connected")
+                print(f"total number of client: {self.clients_count()}")
+        except KeyboardInterrput:
+            print("\nShutting down the server...")
+        finally:
+            self.shutdown()
+    def shutdown(self):
+        for conn,_ in clients:
+            conn.close()
+        self.clients.clear()
+        self.server_socket.close()
 
+
+        
 
 
 def main():
