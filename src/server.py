@@ -24,12 +24,12 @@ class Server:
                 self.clients.append((conn, client_addr))
                 print(f"client {client_addr} has connected")
                 print(f"total number of client: {self.clients_count()}")
-        except KeyboardInterrput:
+        except KeyboardInterrupt:
             print("\nShutting down the server...")
         finally:
             self.shutdown()
     def shutdown(self):
-        for conn,_ in clients:
+        for conn,_ in self.clients:
             conn.close()
         self.clients.clear()
         self.server_socket.close()
